@@ -66,7 +66,6 @@ void drawLine(int x1, int y1, int x2, int y2, S_RGBA color)
     auto dy{ y2 - y1 };
 
     // #1 : Doplnte kod pro kontrolu vstupu a upravu koordinatu pro ruzne kvadranty.
-
 	bool swapFlag = false;
 	
 	// #1
@@ -98,7 +97,6 @@ void drawLine(int x1, int y1, int x2, int y2, S_RGBA color)
     for (int x = x1; x <= x2; ++x)
     {
         // #2 : Doplnte kod pro upravu koordinatu pro ruzne kvadranty, pripadne upravte i putPixel(...).
-        
         if (swapFlag)
 		{
 			setPixel( y >> FRAC_BITS, x, color);
@@ -107,8 +105,6 @@ void drawLine(int x1, int y1, int x2, int y2, S_RGBA color)
 		{
 			setPixel( x, y >> FRAC_BITS, color);
 		}
-                    
-//        setPixel( x, y >> FRAC_BITS, color);
 
         y += k;
     }

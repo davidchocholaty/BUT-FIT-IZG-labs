@@ -5,6 +5,8 @@ Neefektivni z nasledujicich duvodu:
 
 Jedna se o velmi pomale operace a tim padem je zpusobeno, ze algoritmus je neefektivni.
 
+------------------------------------------------------------------------------------------------
+
 English version:
 
 Inefficient for the following reasons:
