@@ -66,31 +66,31 @@ void drawLine(int x1, int y1, int x2, int y2, S_RGBA color)
     auto dy{ y2 - y1 };
 
     // #1 : Doplnte kod pro kontrolu vstupu a upravu koordinatu pro ruzne kvadranty.
-	bool swapFlag = false;
+    bool swapFlag = false;
 	
-	// #1
+    // #1
 	
-	if (x1 == x2 && y1 == y2)
-	{
-	    setPixel(x1, y1, color);
-		return;
-	}
+    if (x1 == x2 && y1 == y2)
+    {
+        setPixel(x1, y1, color);
+	return;
+    }
 	
-	// #2
-	if (abs(dy) > abs(dx))
-	{
-		swap(x1, y1);
-		swap(x2, y2);
-		swap(dx, dy);
-		swapFlag = true;
-	}
+    // #2
+    if (abs(dy) > abs(dx))
+    {
+        swap(x1, y1);
+        swap(x2, y2);
+        swap(dx, dy);	
+        swapFlag = true;
+    }
 	
-	// #3
-	if (x1 > x2)
-	{
-		swap(x1, x2);
-		swap(y1, y2);
-	}
+    // #3
+    if (x1 > x2)
+    {
+        swap(x1, x2);
+        swap(y1, y2);
+    }
 
     auto y{ y1 << FRAC_BITS };
     auto k{ (dy << FRAC_BITS) / dx };
@@ -98,13 +98,13 @@ void drawLine(int x1, int y1, int x2, int y2, S_RGBA color)
     {
         // #2 : Doplnte kod pro upravu koordinatu pro ruzne kvadranty, pripadne upravte i putPixel(...).
         if (swapFlag)
-		{
-			setPixel( y >> FRAC_BITS, x, color);
-		}
-		else
-		{
-			setPixel( x, y >> FRAC_BITS, color);
-		}
+        {
+            setPixel( y >> FRAC_BITS, x, color);
+        }
+        else
+        {
+            setPixel( x, y >> FRAC_BITS, color);
+        }
 
         y += k;
     }
