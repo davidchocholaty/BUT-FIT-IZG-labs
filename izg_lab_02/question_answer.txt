@@ -1,0 +1,15 @@
+Neefektivni z nasledujicich duvodu:
+
+1. Pouziti operace deleni pro vypocet konstanty k
+2. Pouzivani promennych datoveho typu double a jejich zaokrouhlovani pomoci funkce round()
+
+Jedna se o velmi pomale operace a tim padem je zpusobeno, ze algoritmus je neefektivni.
+
+English version:
+
+Inefficient for the following reasons:
+
+1. Use the division operation to calculate value of constant k
+2. Use variables of double data type and their rounding with function round()
+
+These are very slow operations and thus the algorithm is inefficient.
