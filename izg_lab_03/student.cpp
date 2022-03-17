@@ -124,8 +124,7 @@ void drawLine(int x1, int y1, int x2, int y2, RGBA color, bool arrow = false)
  */
 void pinedaTriangle(const Point &v1, const Point &v2, const Point &v3, const RGBA &color1, const RGBA &color2, bool arrow)
 {
-	int minX, maxX, minY, maxY;
-	//int a1, a2, a3, b1, b2, b3, c1, c2, c3;
+    int minX, maxX, minY, maxY;
     int e1minX, e2minX, e3minX;
     int deltaX1, deltaY1, deltaX2, deltaY2, deltaX3, deltaY3;
     int e1, e2, e3;
@@ -169,28 +168,28 @@ void pinedaTriangle(const Point &v1, const Point &v2, const Point &v3, const RGB
     // Pro aktualizaci hodnot hranove funkce v bode P (x +/- 1, y) nebo P (x, y +/- 1)
     // vyuzijte hodnoty hranove funkce E (x, y) z bodu P (x, y).
 
-	for (int y = minY; y <= maxY; y++)
-	{
-		e1 = e1minX;
-		e2 = e2minX;
-		e3 = e3minX;
-		
-		for(int x = minX; x <= maxX; x++)
-		{
-			if (e1 >= 0 && e2 >= 0 && e3 >= 0)
-			{
-				putPixel(x, y, color1);
-			}
-			
-			e1 -= deltaY1;
-			e2 -= deltaY2;
-			e3 -= deltaY3;
-		}
-		
-		e1minX += deltaX1;
-		e2minX += deltaX2;
-		e3minX += deltaX3;
-	}
+    for (int y = minY; y <= maxY; y++)
+    {
+	    e1 = e1minX;
+	    e2 = e2minX;
+	    e3 = e3minX;
+	    
+	    for(int x = minX; x <= maxX; x++)
+	    {
+		    if (e1 >= 0 && e2 >= 0 && e3 >= 0)
+		    {
+			    putPixel(x, y, color1);
+		    }
+		    
+		    e1 -= deltaY1;
+		    e2 -= deltaY2;
+		    e3 -= deltaY3;
+	    }
+	    
+	    e1minX += deltaX1;
+	    e2minX += deltaX2;
+	    e3minX += deltaX3;
+    }
 
     // Prekresleni hranic trojuhelniku barvou color2.
     drawLine(v1.x, v1.y, v2.x, v2.y, color2, arrow);
@@ -209,11 +208,11 @@ void pinedaTriangle(const Point &v1, const Point &v2, const Point &v3, const RGB
  */
 void pinedaPolygon(const Point *points, const int size, const RGBA &color1, const RGBA &color2)
 {
-	int minX, maxX, minY, maxY;
-	int dx1, dy1, dx2, dy2;
-	int zCrossProduct;
-	bool sign;
-	bool drawPixel;
+    int minX, maxX, minY, maxY;
+    int dx1, dy1, dx2, dy2;
+    int zCrossProduct;
+    bool sign;
+    bool drawPixel;
     // Pri praci muzete vyuzit pro vas predpripravene datove typy z base.h., napriklad:
     //
     //      Pro ukladani parametru hranovych funkci muzete vyuzit prichystany vektor parametru hranovych funkci "EdgeParams":
@@ -248,53 +247,53 @@ void pinedaPolygon(const Point *points, const int size, const RGBA &color1, cons
     // Oriznuti obalky (minX, maxX), (minY, maxY) polygonu podle rozmeru okna
 
     minX = MAX(minX, 0);
-	maxX = MIN (maxX, width -1);
+    maxX = MIN (maxX, width -1);
 
-	minY = MAX(minY, 0);
-	maxY = MIN (maxY, height -1);
-	
-	// Spocitani parametru (deltaX, deltaY) hranove funkce pro kazdou hranu.
-	// Hodnoty deltaX, deltaY jsou souradnicemi vektoru, ktery ma pocatek
-	// v prvnim vrcholu hrany, konec v druhem vrcholu.
-	// Vypocet prvnotnich hodnot hranovych funkci pro jednotlive hrany.
-	
-	for (int i = 0; i < size; i++)
-	{
-		edgeParams[i].deltaX = points[(i+1)%size].x - points[i].x;
-		edgeParams[i].deltaY = points[(i+1)%size].y - points[i].y;
-	}	
-		
-	for (int i = 0; i < size; i++)
-	{
-		edgeFncValuesMinX[i] = (minY - points[i].y)*edgeParams[i].deltaX -
-	                           (minX - points[i].x)*edgeParams[i].deltaY;		
-	}
-    
+    minY = MAX(minY, 0);
+    maxY = MIN (maxY, height -1);
+
+    // Spocitani parametru (deltaX, deltaY) hranove funkce pro kazdou hranu.
+    // Hodnoty deltaX, deltaY jsou souradnicemi vektoru, ktery ma pocatek
+    // v prvnim vrcholu hrany, konec v druhem vrcholu.
+    // Vypocet prvnotnich hodnot hranovych funkci pro jednotlive hrany.
+
+    for (int i = 0; i < size; i++)
+    {
+	    edgeParams[i].deltaX = points[(i+1)%size].x - points[i].x;
+	    edgeParams[i].deltaY = points[(i+1)%size].y - points[i].y;
+    }	
+	    
+    for (int i = 0; i < size; i++)
+    {
+	    edgeFncValuesMinX[i] = (minY - points[i].y)*edgeParams[i].deltaX -
+                               (minX - points[i].x)*edgeParams[i].deltaY;		
+    }
+
     // Test konvexnosti polygonu    
 
-	if (size >= 4)
-	{	
-		sign = false;
-			
-		for (int i = 0; i < size; i++)
-		{
-			dx1 = points[(i+1)%size].x - points[i].x;
-			dy1 = points[(i+1)%size].y - points[i].y;
-			dx2 = points[(i+2)%size].x - points[(i+1)%size].x;
-			dy2 = points[(i+2)%size].y - points[(i+1)%size].y;
-			zCrossProduct = dx1 * dy2 - dy1 * dx2;
-			
-			if (i == 0)
-			{
-				sign = zCrossProduct > 0;
-			}
-			else if ((zCrossProduct > 0) != sign)
-			{				
-				IZG_INFO("Polygon is non convex!\n");				
-				return;
-			}
-		}
-	}
+    if (size >= 4)
+    {	
+	    sign = false;
+		    
+	    for (int i = 0; i < size; i++)
+	    {
+		    dx1 = points[(i+1)%size].x - points[i].x;
+		    dy1 = points[(i+1)%size].y - points[i].y;
+		    dx2 = points[(i+2)%size].x - points[(i+1)%size].x;
+		    dy2 = points[(i+2)%size].y - points[(i+1)%size].y;
+		    zCrossProduct = dx1 * dy2 - dy1 * dx2;
+		    
+		    if (i == 0)
+		    {
+			    sign = zCrossProduct > 0;
+		    }
+		    else if ((zCrossProduct > 0) != sign)
+		    {				
+			    IZG_INFO("Polygon is non convex!\n");				
+			    return;
+		    }
+	    }
+    }
     
     // Vyplnovani: Cyklus pres vsechny body (x, y) v obdelniku (minX, minY), (maxX, maxY).
     // Pro aktualizaci hodnot hranove funkce v bode P (x +/- 1, y) nebo P (x, y +/- 1)
@@ -302,39 +301,39 @@ void pinedaPolygon(const Point *points, const int size, const RGBA &color1, cons
     
     for (int y = minY; y <= maxY; y++)
     {
-		for (int i = 0; i < size; i++)
-		{
-			edgeFncValues[i] = edgeFncValuesMinX[i];
-		}
-		
-		for (int x = minX; x <= maxX; x++)
-		{
-			drawPixel = true;
-						
-			for (int i = 0; i < size; i++)
-			{
-				if (edgeFncValues[i] < 0)
-				{
-					drawPixel = false;
-					break;
-				}
-			}
-			
-			if (drawPixel)
-			{
-				putPixel(x, y, color1);
-			}
-			
-			for (int i = 0; i < size; i++)
-			{
-				edgeFncValues[i] -= edgeParams[i].deltaY;
-			}
-		}
-		
-		for (int i = 0; i < size; i++)
-		{
-			edgeFncValuesMinX[i] += edgeParams[i].deltaX;
-		}
+	    for (int i = 0; i < size; i++)
+	    {
+		    edgeFncValues[i] = edgeFncValuesMinX[i];
+	    }
+	    
+	    for (int x = minX; x <= maxX; x++)
+	    {
+		    drawPixel = true;
+					    
+		    for (int i = 0; i < size; i++)
+		    {
+			    if (edgeFncValues[i] < 0)
+			    {
+				    drawPixel = false;
+				    break;
+			    }
+		    }
+		    
+		    if (drawPixel)
+		    {
+			    putPixel(x, y, color1);
+		    }
+		    
+		    for (int i = 0; i < size; i++)
+		    {
+			    edgeFncValues[i] -= edgeParams[i].deltaY;
+		    }
+	    }
+	    
+	    for (int i = 0; i < size; i++)
+	    {
+		    edgeFncValuesMinX[i] += edgeParams[i].deltaX;
+	    }
 	}
 
     // Prekresleni hranic polygonu barvou color2.
