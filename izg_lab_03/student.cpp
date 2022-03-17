@@ -328,13 +328,13 @@ void pinedaPolygon(const Point *points, const int size, const RGBA &color1, cons
 		    {
 			    edgeFncValues[i] -= edgeParams[i].deltaY;
 		    }
-	    }
+        }
 	    
 	    for (int i = 0; i < size; i++)
 	    {
 		    edgeFncValuesMinX[i] += edgeParams[i].deltaX;
 	    }
-	}
+    }
 
     // Prekresleni hranic polygonu barvou color2.
     for (int i = 0; i < size; i++) {
