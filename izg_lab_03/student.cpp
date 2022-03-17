@@ -334,6 +334,7 @@ void pinedaPolygon(const Point *points, const int size, const RGBA &color1, cons
 	    {
 		    edgeFncValuesMinX[i] += edgeParams[i].deltaX;
 	    }
+	    
     }
 
     // Prekresleni hranic polygonu barvou color2.
