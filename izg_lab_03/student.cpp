@@ -148,22 +148,22 @@ void pinedaTriangle(const Point &v1, const Point &v2, const Point &v3, const RGB
     maxY = MIN(maxY, height-1);
 
     // Spocitani parametru hranove funkce (deltaX, deltaY) pro kazdou hranu.
-	// Hodnoty deltaX, deltaY jsou souradnicemi vektoru, ktery ma pocatek
-	// v prvnim vrcholu hrany, konec v druhem vrcholu.
-	// Vypocet prvnotni hodnoty hranove funkce.
+    // Hodnoty deltaX, deltaY jsou souradnicemi vektoru, ktery ma pocatek
+    // v prvnim vrcholu hrany, konec v druhem vrcholu.
+    // Vypocet prvnotni hodnoty hranove funkce.
 
-	deltaX1 = v2.x - v1.x;
-	deltaY1 = v2.y - v1.y;
+    deltaX1 = v2.x - v1.x;
+    deltaY1 = v2.y - v1.y;
 	
-	deltaX2 = v3.x - v2.x;
-	deltaY2 = v3.y - v2.y;
+    deltaX2 = v3.x - v2.x;
+    deltaY2 = v3.y - v2.y;
 	
-	deltaX3 = v1.x - v3.x;
-	deltaY3 = v1.y - v3.y;
+    deltaX3 = v1.x - v3.x;
+    deltaY3 = v1.y - v3.y;
 
-	e1minX = (minY - v1.y)*deltaX1 - (minX - v1.x)*deltaY1;
-	e2minX = (minY - v2.y)*deltaX2 - (minX - v2.x)*deltaY2;
-	e3minX = (minY - v3.y)*deltaX3 - (minX - v3.x)*deltaY3;
+    e1minX = (minY - v1.y)*deltaX1 - (minX - v1.x)*deltaY1;
+    e2minX = (minY - v2.y)*deltaX2 - (minX - v2.x)*deltaY2;
+    e3minX = (minY - v3.y)*deltaX3 - (minX - v3.x)*deltaY3;
 
     // Vyplnovani: Cyklus pres vsechny body (x, y) v obdelniku (minX, minY), (maxX, maxY).
     // Pro aktualizaci hodnot hranove funkce v bode P (x +/- 1, y) nebo P (x, y +/- 1)
@@ -235,15 +235,15 @@ void pinedaPolygon(const Point *points, const int size, const RGBA &color1, cons
     // Nalezeni obalky (minX, maxX), (minY, maxY) polygonu.
     
     minX = maxX = points[0].x;
-	minY = maxY = points[0].y;
+    minY = maxY = points[0].y;
     
-	for (int i = 0; i < size; i++)
-	{
-		minX = MIN(minX, points[i].x);
-		maxX = MAX(maxX, points[i].x);
-		minY = MIN(minY, points[i].y);
-		maxY = MAX(maxY, points[i].y);
-	}
+    for (int i = 0; i < size; i++)
+    {
+        minX = MIN(minX, points[i].x);
+        maxX = MAX(maxX, points[i].x);
+        minY = MIN(minY, points[i].y);
+        maxY = MAX(maxY, points[i].y);
+    }
 
     // Oriznuti obalky (minX, maxX), (minY, maxY) polygonu podle rozmeru okna
 
